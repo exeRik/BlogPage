@@ -1,38 +1,36 @@
-// import { useState, useEffect } from "react";
-// import { slugify } from "../utils/slugify";
+import { slugify } from "../utils/slugify";
 
-// export default function BlogList() {
-//   const [blogs, setBlogs] = useState([]);
-//   const [loading, setLoading] = useState(true);
+// Fetch blogs from API and transform to frontend-friendly format
+export const fetchBlogs = async () => {
+  try {
+    const response = await fetch("http://192.168.1.114:3000/api/blogs");
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-//   useEffect(() => {
-//     fetch("")
-//       .then((res) => res.json())
-//       .then((data) => {
-//         // Add slug for each blog
-//         const blogsWithSlug = data.map((blog) => ({
-//           ...blog,
-//           slug: slugify(blog.title),
-//         }));
-//         setBlogs(blogsWithSlug);
-//         setLoading(false);
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//         setLoading(false);
-//       });
-//   }, []);
+    const result = await response.json();
+    console.log("Raw API response:", result);
 
-//   if (loading) return <p>Loading blogs...</p>;
+    // Ensure result.data is an array
+    const blogsArray = Array.isArray(result.data) ? result.data : [];
 
-//   return (
-//     <div>
-//       {blogs.map((blog) => (
-//         <div key={blog.id}>
-//           <h2>{blog.title}</h2>
-//           <p>{blog.description}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
+    // Transform each blog to match your frontend format
+    const transformedBlogs = blogsArray.map((blog, index) => ({
+      id: blog.id || index + 1,
+      title: blog.Title || "Untitled",
+      category: blog.category || "General",
+      author: blog.Author.Name || "Unknown",
+      date:  new Date().toISOString().split("T")[0],
+      readTime: "5 min",
+      description: blog.Content || "No description available.",
+      slug: blog.slug,
+      image:`http://192.168.1.114:8055/assets/${blog.image.id}`
+
+    }));
+
+    console.log("Transformed Blogs:", transformedBlogs);
+
+    return transformedBlogs;
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    return []; // fallback empty array
+  }
+};

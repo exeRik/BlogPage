@@ -2,7 +2,7 @@ export const theme = {
   fontFamily: "'Inter', sans-serif",
   colors: {
     darkBg: "#0e1118ff",
-    lightBg: "#dadfe3ff",
+    lightBg: "#b4c0caff",
     darkCard: "#0b111c",
     lightCard: "#f6f2f2ff",
     darkPrimary: "#a3c9ff",

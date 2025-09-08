@@ -1,85 +1,48 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { blogs } from "../data/blogs";
-import { Text, Image, Badge, Group, Anchor, ScrollArea } from "@mantine/core";
-import { useMantineColorScheme } from "@mantine/core";
-import { theme } from "../utils/theme";
-import { Link } from "react-router-dom";
+import { Center, Text, Image } from "@mantine/core";
+import { fetchBlogs } from "../data/api"; // your API fetch function
 
 export default function BlogDetail() {
-  const { slug } = useParams();
-  const blog = blogs.find((b) => b.slug === slug);
-  const { colorScheme } = useMantineColorScheme();
-  const dark = colorScheme === "dark";
+  const { slug } = useParams(); // get slug from URL
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!blog)
+  useEffect(() => {
+    const getBlog = async () => {
+      setLoading(true);
+      const blogs = await fetchBlogs();
+      const foundBlog = blogs.find(b => b.slug === slug); // match by slug
+      setBlog(foundBlog || null);
+      setLoading(false);
+    };
+    getBlog();
+  }, [slug]);
+
+  if (loading) {
     return (
-      <Text
-        align="center"
-        size="xl"
-        mt="xl"
-        color={dark ? theme.colors.darkPrimary : theme.colors.lightPrimary}
-      >
-        Blog not found
-      </Text>
+      <Center style={{ minHeight: "100vh" }}>
+        <Text>Loading blog...</Text>
+      </Center>
     );
+  }
 
-  const bgColor = dark ? theme.colors.darkBg : theme.colors.lightBg;
-  const textColor = dark ? theme.colors.darkSecondary : theme.colors.lightSecondary;
-  const titleColor = dark ? theme.colors.darkPrimary : theme.colors.lightPrimary;
-  const accentColor = dark ? theme.colors.darkAccent : theme.colors.lightAccent;
+  if (!blog) {
+    return (
+      <Center style={{ minHeight: "100vh" }}>
+        <Text>Blog not found.</Text>
+      </Center>
+    );
+  }
 
   return (
-    <div
-      style={{
-        backgroundColor: bgColor,
-        minHeight: "100vh",
-        width: "100%",
-        fontFamily: theme.fontFamily,
-        padding: "4rem 8%",
-        color: textColor,
-      }}
-    >
-      <Anchor
-        component={Link}
-        to="/"
-        color={accentColor}
-        mb="2rem"
-        style={{ display: "inline-block", marginBottom: "2rem", fontWeight: 500 }}
-      >
-        ← Back to Blog List
-      </Anchor>
-
-
-      <Text
-        size="5xl"
-        weight={700}
-        style={{ color: titleColor, lineHeight: 1.3, marginBottom: "1rem" }}
-      >
-        {blog.title}
+    <div style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
+      <Text size="xl" weight={700} mb="sm">{blog.title}</Text>
+      <Text size="sm" color="gray" mb="md">
+        {blog.author} | {blog.date} | {blog.readTime}
       </Text>
-
-      {/* Metadata */}
-      <Group spacing="md" mb="2rem">
-        <Text size="sm" color={textColor}>
-          {blog.author} • {blog.date}
-        </Text>
-        {blog.category && <Badge color={accentColor}>{blog.category}</Badge>}
-      </Group>
-
-      {/* Blog Image */}
-      <Image
-        src={blog.image}
-        height={400}
-        alt={blog.title}
-        style={{ width: "100%", borderRadius: "10px", marginBottom: "2rem" }}
-      />
-
-      {/* Blog Description */}
-      <ScrollArea style={{ height: "auto" }}>
-        <article style={{ fontSize: "1.05rem", lineHeight: 1.8, color: textColor }}>
-          {blog.description}
-        </article>
-      </ScrollArea>
+      <Image src={blog.image} alt={blog.title} mb="md" />
+      <Text size="md">{blog.description}</Text>
     </div>
   );
 }

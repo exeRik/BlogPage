@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 export const useFiltering = () => {
@@ -7,7 +6,8 @@ export const useFiltering = () => {
 
   const filterBlogs = (blogs) => {
     return blogs.filter((blog) => {
-      const matchesCategory = category === "All" || blog.category === category;
+      const matchesCategory =
+        category === "All" || blog.category.toLowerCase() === category.toLowerCase();
       const matchesSearch = blog.title.toLowerCase().includes(search.toLowerCase());
       return matchesCategory && matchesSearch;
     });
