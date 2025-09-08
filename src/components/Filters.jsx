@@ -10,7 +10,7 @@ export default function Filters({ dark, fontFamily, accentColor, search, setSear
         radius="md"
         styles={{
           input: {
-            borderColor: dark ? "#444" : "#ddd",
+            borderColor: dark ? "#000000ff" : "#ddd",
             color: dark ? "#fff" : "#000",
             fontFamily,
             fontSize: "0.95rem",

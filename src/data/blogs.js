@@ -8,7 +8,7 @@ export const blogs = [
     author: "Alex Chen",
     date: "2024-10-21",
     readTime: "9 min",
-    image: "https://picsum.photos/seed/ai/400/300",
+    image: "https://picsum.photos/seed/ai/200/100",
     description: "A beginner-friendly introduction to AI and machine learning concepts."
   },
   {
@@ -78,7 +78,7 @@ export const blogs = [
     author: "Mia Thompson",
     date: "2024-12-10",
     readTime: "11 min",
-    image: "https://picsum.photos/seed/crypto/400/300",
+    image: "https://picsum.photos/seed/crypto/500/200",
     description: "A beginner’s guide to investing and trading in cryptocurrencies."
   },
   {
