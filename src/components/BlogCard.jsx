@@ -1,9 +1,20 @@
-import { Card, Image, Text, Group, Button } from "@mantine/core";
+import { Card, Image, Text, Group } from "@mantine/core";
 import { Link } from "react-router-dom";
 
-export default function BlogCard({ blog, cardColor, primaryText, secondaryText, accentColor, fontFamily, cardHeight, imageHeight }) {
+export default function BlogCard({
+  blog,
+  cardColor,
+  primaryText,
+  secondaryText,
+  accentColor,
+  fontFamily,
+  cardHeight,
+  imageHeight,
+}) {
   return (
     <Card
+      component={Link}       
+      to={`/blog/${blog.slug}`} 
       shadow="md"
       padding="md"
       radius="md"
@@ -15,6 +26,7 @@ export default function BlogCard({ blog, cardColor, primaryText, secondaryText, 
         justifyContent: "space-between",
         backgroundColor: cardColor,
         transition: "transform 0.3s, box-shadow 0.3s",
+        textDecoration: "none",  
         cursor: "pointer",
       }}
       onMouseEnter={(e) => {
@@ -35,9 +47,11 @@ export default function BlogCard({ blog, cardColor, primaryText, secondaryText, 
             style={{ borderRadius: "8px" }}
           />
         </Card.Section>
+
         <Text fw={600} size="md" mt="sm" lineClamp={2} color={primaryText}>
           {blog.title}
         </Text>
+
         <Text size="sm" mt="xs" lineClamp={3} color={secondaryText}>
           {blog.description}
         </Text>
@@ -47,15 +61,14 @@ export default function BlogCard({ blog, cardColor, primaryText, secondaryText, 
         <Text size="xs" color={secondaryText}>
           {blog.author} • {blog.readTime}
         </Text>
-        <Button
+        <Text
           size="xs"
-          component={Link}
-          variant="light"
+          weight={500}
           color={accentColor}
-          styles={{ root: { fontFamily, fontWeight: 500 } }}
+          style={{ fontFamily }}
         >
           Read More
-        </Button>
+        </Text>
       </Group>
     </Card>
   );

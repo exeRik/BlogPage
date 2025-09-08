@@ -40,7 +40,7 @@ export default function BlogList() {
     <div style={{ padding: "2rem", minHeight: "100vh", backgroundColor: colors.bgColor, fontFamily: theme.fontFamily }}>
       <DarkModeToggle dark={dark} accentColor={colors.accentColor} toggle={() => setColorScheme(dark ? "light" : "dark")} />
 
-      <Text align="center" fw={700} size="xl" color={colors.primaryText} mb="xs">
+      <Text align="center" fw={800} size="xl" color={colors.primaryText} mb="xs">
         Latest Articles
       </Text>
       <Text align="center" size="md" color={colors.secondaryText} mb="xl">
