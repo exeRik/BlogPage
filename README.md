@@ -5,6 +5,10 @@
 A fully functional **Blog & Image Gallery** application built with **React** and **Mantine UI**, featuring dynamic routing, sorting, filtering, and integration with a backend API to fetch real-time data.
 
 ---
+## Live-Demo
+https://blog-page-beryl.vercel.app
+
+---
 
 ## Features
 
@@ -36,14 +40,11 @@ A fully functional **Blog & Image Gallery** application built with **React** and
   * Fetches data dynamically from a backend API.
   * Displays blogs/images, categories, and dates in real-time.
 
-* **Optional Enhancements:**
+* **Dark/Light mode toggle Button:**
+* **pagination**
+* **Search bar to find blogs/images by title**
 
-  * “Load More” button for pagination.
-  * Search bar to find blogs/images by title.
 
----
-
-## Screenshots
 
 
 
@@ -84,7 +85,6 @@ yarn dev
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
-
 
 
 ## Usage
