@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function BlogCard({ blog, cardColor, primaryText, secondaryText, accentColor, fontFamily, cardHeight, imageHeight }) {
   return (
-    <Card component={Link} to={`/blog/${blog.slug}`} shadow="md" padding="md" radius="md" withBorder
+    <Card   component={Link} to={`/blog/${blog.slug}`} shadow="md" padding="md" radius="md" withBorder
           style={{ height: cardHeight, display: "flex", flexDirection: "column", justifyContent: "space-between", backgroundColor: cardColor, textDecoration: "none" }}>
       <div>
         <Card.Section>

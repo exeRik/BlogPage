@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Center, Text, Image } from "@mantine/core";
-import { fetchBlogs } from "../data/api"; // your API fetch function
-
+import { fetchBlogs } from "../data/api"; 
 export default function BlogDetail() {
-  const { slug } = useParams(); // get slug from URL
+  const { slug } = useParams(); 
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -12,7 +11,7 @@ export default function BlogDetail() {
     const getBlog = async () => {
       setLoading(true);
       const blogs = await fetchBlogs();
-      const foundBlog = blogs.find(b => b.slug === slug); // match by slug
+      const foundBlog = blogs.find(b => b.slug === slug); 
       setBlog(foundBlog || null);
       setLoading(false);
     };

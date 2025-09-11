@@ -1,6 +1,6 @@
 import { slugify } from "../utils/slugify";
 
-// Fetch blogs from API and transform to frontend-friendly format
+
 export const fetchBlogs = async () => {
   try {
     const response = await fetch("http://192.168.1.114:3000/api/blogs");
@@ -9,10 +9,9 @@ export const fetchBlogs = async () => {
     const result = await response.json();
     console.log("Raw API response:", result);
 
-    // Ensure result.data is an array
     const blogsArray = Array.isArray(result.data) ? result.data : [];
 
-    // Transform each blog to match your frontend format
+
     const transformedBlogs = blogsArray.map((blog, index) => ({
       id: blog.id || index + 1,
       title: blog.Title || "Untitled",
@@ -31,6 +30,6 @@ export const fetchBlogs = async () => {
     return transformedBlogs;
   } catch (error) {
     console.error("Failed to fetch blogs:", error);
-    return []; // fallback empty array
+    return [];
   }
 };
